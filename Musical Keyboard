@@ -1,0 +1,70 @@
+#include <iostream>
+#include <stdio.h>
+#include <windows.h> // for Beep()
+#include <unistd.h> // for usleep()
+#include <conio.h> // for _getch()
+#include <ctype.h>
+using namespace std;
+int main(int argc, char *argv[])
+{
+    int i;
+    int music[] = {784.0, 659.3, 659.3, 0, 0, 0, 698.5, 587.3, 587.3, 0, 0, 0, 523.3, 587.3, 659.3, 698.5, 784.0, 784.0, 784.0, 0, 0, 0,
+    784.0, 659.3, 659.3, 0, 0, 0, 698.5, 587.3, 587.3, 0, 0, 0, 523.3, 659.3, 784.0, 784.0, 523.3};
+    double pitch[]={0, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 932.3, 987.8};
+    cout << "Welcome to musical key board. Press 1 to play automatically, or press 2 to play manually.";
+    cin >> i;
+    if (i == 1)
+    {
+/*--- play the music defined in music[] automatically ---*/
+       for(int t=0; t<39; t++)
+        {
+            if(music[t]==0) usleep(400); // sleep for a while without making any sound
+            else Beep(music[t], 400); // Beep for a musicial note
+
+        }
+    }
+    else if (i == 2)
+    {
+        while(true)
+        {
+            char note = getch();
+            if (note == 'a')
+            {
+                Beep(0,100);
+            }
+            if (note == '1')
+            {
+                Beep(523.3,100);
+            }
+            if (note == '2')
+            {
+                Beep(587.3,100);
+            }
+            if (note == '3')
+            {
+                Beep(659.3,100);
+            }
+            if (note == '4')
+            {
+                Beep(698.5,100);
+            }
+            if (note == '5')
+            {
+                Beep(784.0,100);
+            }
+            if (note == '6')
+            {
+                Beep(880.0,100);
+            }
+            if (note == '7')
+            {
+                Beep(932.3,100);
+            }
+            if (note == '8')
+            {
+                Beep(987.8,100);
+            }
+        }
+    }
+return 0;
+}
