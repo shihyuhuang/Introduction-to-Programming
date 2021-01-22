@@ -1,0 +1,47 @@
+include <iostream>
+#include <string>
+#include <string.h>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include <sstream>
+
+using namespace std;
+
+
+int main() {
+  string line, input, max_key;
+  char tmp[10000];
+  char * pch;
+  int i, line_num = 0, max_value;
+  map<string, int> counter;
+  map<string, int>::iterator iter;
+  ifstream fin("picasso.txt");
+
+  while (getline(fin, line) && line.length() > 1) {
+    line_num++;
+    strcpy(tmp, line.c_str());
+    pch = strtok(tmp, " .,-\"()\n:;\r\n");
+    while (pch != NULL) {
+      iter = counter.find(string(pch));
+      if (iter == counter.end()) counter.insert(pair<string, int>(string(pch), 1));
+      else iter->second += 1;
+      pch = strtok(NULL, " .,-\"()\n:;\r\n");
+    }
+  }
+  cout << "Total no. of lines: " << line_num << endl;
+  cout << "The total number of words in \"picasso.txt\": " << counter.size() << endl;
+
+  for (i = 0; i < 10; ++i) {
+    max_value = -1;
+    for (iter = counter.begin(); iter != counter.end(); ++iter)
+      if (iter->second > max_value) {
+        max_key = iter->first;
+        max_value = iter->second;
+      }
+    cout << "The " << i << "-th frequent word is (" << max_key << ") with no. of appearances (" << max_value << ")" << endl;
+    counter.erase(max_key);
+  }
+
+  return 0;
+}
