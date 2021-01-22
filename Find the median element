@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string.h>
+#include <stdio.h>
+
+using namespace std;
+
+class complex_number{
+private:
+    double re, img;
+public:
+    char input[100];
+    void convert(int& ,int& ,int &num, char[]);
+    int real=0,complex=0;
+    int num;
+};
+
+void complex_number::convert(int &real, int &complex, int &num, char input[])
+{
+    //char a[20],b[20];
+    int c,d;
+    //sscanf(intput,"%[0-9]",a);
+    //sscanf(intput,"%*[^j]",b);
+
+    //sscanf(a,"%d",c);
+    //sscanf(b,"%d",d);
+    c = input[0]-48;
+    d = input[3]-48;
+
+    real = c;
+    complex = d;
+    num = c*c+d*d;
+
+    //cout /*<< "a = " << a << "b = " << b */<< "c = " << c << "d = " << d << "num =" << num <<endl;
+}
+
+
+int main()
+{
+    int i;
+    complex_number array[100];
+
+    for(i=0;i<7;i++){
+        complex_number q;
+        cin >> q.input;
+        q.convert(q.real,q.complex,q.num,q.input);
+        array[i] = q;
+    }
+
+    cout << "Original Array of Complex Numbers: " << endl;
+
+    for(i=0;i<7;i++)
+    {
+        cout << array[i].input;
+    }
+
+    cout << endl;
+
+    for (i=6;i>0;--i){
+        for (int j=0;j<i; ++j){
+            if (array[j].num > array[j + 1].num)
+            {
+                complex_number temp;
+                temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+        }
+    }
+
+    cout << "The Median Element of the Array is: " << array[3].input << endl;
+
+    return 0;
+}
